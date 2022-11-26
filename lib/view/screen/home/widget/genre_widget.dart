@@ -38,61 +38,49 @@ class GenreWidget extends SliverPersistentHeaderDelegate {
             ),
         ],
       ),
-      child: BlocBuilder<GenreBloc, GenreState>(
-        builder: (context, state) {
-          if (state is GenreStateLoading || state is GenreStateInit) {
-            return const CollectionLoading();
-          }
-          else if (state is GenreStateSuccess) {
-            final genreList = state.genreResponse.listGenre;
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              itemCount: genreList!.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      AppRouteName.search,
-                      arguments: genreList[index].id,
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(left: index == 0 ? 0 : 16),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(36),
+      child: BlocBuilder<GenreCubit, GenreState>(
+        builder: (context, state) => (state is GenreStateSuccess)
+            ? ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                itemCount: state.genreResponse.listGenre?.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRouteName.search,
+                        arguments: state.genreResponse.listGenre?[index].id,
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(left: index == 0 ? 0 : 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(36),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        state.genreResponse.listGenre?[index].name ?? '',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: Theme.of(context).backgroundColor,
+                            ),
+                        maxLines: 1,
+                      ),
                     ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      genreList[index].name ?? '',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Theme.of(context).backgroundColor,
-                          ),
-                      maxLines: 1,
-                    ),
-                  ),
-                );
-              },
-            );
-          }
-          else{
-            return const SizedBox(
-              child: Center(
-                child: Text('Error'),
-              ),
-            );
-          }
-        },
+                  );
+                },
+              )
+            : const GenreLoading(),
       ),
     );
   }
 }
 
-class CollectionLoading extends StatelessWidget {
-  const CollectionLoading({super.key});
+class GenreLoading extends StatelessWidget {
+  const GenreLoading({super.key});
 
   @override
   Widget build(BuildContext context) {

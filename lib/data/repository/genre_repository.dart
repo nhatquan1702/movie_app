@@ -4,7 +4,7 @@ import 'package:movie_app/data/model/network/response/model/genre/genre_model.da
 class GenreRepository {
   final _client = ApiClient();
 
-  Future<GenreList> fetchGenreList() {
+  Future<GenreList?> fetchGenreList() {
     return _client.getListGenre();
   }
 }

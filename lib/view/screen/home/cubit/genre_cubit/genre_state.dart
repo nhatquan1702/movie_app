@@ -24,4 +24,4 @@ class GenreStateSuccess extends GenreState {
   }
 }
 
-class GenreStateFail extends GenreState {}
+class GenreStateError extends GenreState {}

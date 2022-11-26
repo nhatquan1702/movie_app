@@ -2,27 +2,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/data/repository/genre_repository.dart';
 import 'package:movie_app/view/screen/home/cubit/genre_cubit/genre_state.dart';
 
-class GenreBloc extends Cubit<GenreState> {
+class GenreCubit extends Cubit<GenreState> {
   GenreRepository? genreRepo;
-  GenreBloc() : super(GenreStateLoading()) {
+  GenreCubit() : super(GenreStateInit()) {
     genreRepo = GenreRepository();
   }
 
-  Future<void> fetchData() async {
+  Future<void> fetchGenre({
+    bool showLoading = true,
+  }) async {
+    if (showLoading) emit(GenreStateLoading());
     try {
-      emit(GenreStateLoading());
-      final mList = await genreRepo!.fetchGenreList();
-
-      if (mList.error != null) {
+      final mList = await genreRepo?.fetchGenreList();
+      if (showLoading) emit(GenreStateLoading());
+      if (mList?.error == null && mList?.listGenre != null) {
         emit(GenreStateSuccess(
-          genreResponse: mList,
+          genreResponse: mList!,
           listSelected: [],
         ));
       } else {
-        emit(GenreStateFail());
+        emit(GenreStateError());
       }
     } catch (e) {
-      emit(GenreStateFail());
+      if (showLoading) {
+        emit(GenreStateLoading());
+      } else {
+        emit(GenreStateError());
+      }
     }
   }
 

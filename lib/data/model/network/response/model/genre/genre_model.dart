@@ -3,9 +3,9 @@ class GenreData {
   final String? name;
 
   GenreData(
-      this.id,
-      this.name,
-      );
+    this.id,
+    this.name,
+  );
 
   GenreData.fromJson(Map<String, dynamic> json)
       : id = json["id"],
@@ -27,11 +27,10 @@ class GenreList {
 
   GenreList.fromJson(Map<String, dynamic> json)
       : listGenre =
-  (json["genres"] as List).map((i) => GenreData.fromJson(i)).toList(),
-        error = "";
+            (json["genres"] as List).map((i) => GenreData.fromJson(i)).toList(),
+        error = null;
 
   GenreList.withError(String errorValue)
-      : listGenre = [],
+      : listGenre = null,
         error = errorValue;
 }
-

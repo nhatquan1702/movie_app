@@ -8,11 +8,10 @@ class ApiClient {
   static String mainUrl = "https://api.themoviedb.org/3";
   var getGenresUrl = "$mainUrl/genre/movie/list";
 
-  Future<GenreList> getListGenre() async {
+  Future<GenreList?> getListGenre() async {
     var params = {"api_key": apiKey, "language": "vi-VN"};
     try {
       Response response = await _dio.get(getGenresUrl, queryParameters: params);
-
       return GenreList.fromJson(response.data);
     } catch (error, stacktrace) {
       if (kDebugMode) {
