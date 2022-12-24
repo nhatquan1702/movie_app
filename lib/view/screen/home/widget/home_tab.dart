@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/constant/route/route_name.dart';
 import 'package:movie_app/constant/theme/color.dart';
+import 'package:movie_app/constant/theme/theme_controller.dart';
+import 'package:movie_app/constant/theme/theme_service.dart';
+import 'package:movie_app/data/repository/movie_repository.dart';
 import 'package:movie_app/view/screen/home/cubit/genre_cubit/genre_cubit.dart';
 import 'package:movie_app/view/screen/home/cubit/genre_cubit/genre_state.dart';
-import 'package:movie_app/view/screen/home/widget/genre_widget.dart';
+import 'package:movie_app/view/screen/home/cubit/now_playing_cubit/now_playing_cubit.dart';
+import 'package:movie_app/view/screen/home/cubit/upcoming_cubit/upcoming_movie_cubit.dart';
+import 'package:movie_app/view/screen/home/widget/home_tab/genre_widget.dart';
+import 'package:movie_app/view/screen/home/widget/home_tab/now_playing/now_playing_list.dart';
+import 'package:movie_app/view/screen/home/widget/home_tab/slider/slider_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeTabLayout extends StatefulWidget {
@@ -17,6 +24,8 @@ class HomeTabLayout extends StatefulWidget {
 
 class _HomeTabLayoutState extends State<HomeTabLayout> {
   final GenreCubit _genreBloc = GenreCubit();
+  final movieRepository = MovieRepository();
+  final themeController = ThemeController(ThemeService());
 
   @override
   void initState() {
@@ -90,9 +99,15 @@ class _HomeTabLayoutState extends State<HomeTabLayout> {
                   enablePullUp: true,
                   onRefresh: () {
                     context.read<GenreCubit>().fetchGenre(showLoading: true);
+                    context.read<UpcomingMovieCubit>().fetchUpcomingMovieList(showLoading: true);
+                    context.read<NowPlayingCubit>().fetchNowPlayingList(showLoading: true);
                   },
                   enablePullDown: true,
-                  onLoading: () {},
+                  onLoading: () {
+                    context.read<GenreCubit>().fetchGenre(showLoading: true);
+                    context.read<UpcomingMovieCubit>().fetchUpcomingMovieList(showLoading: true);
+                    context.read<NowPlayingCubit>().fetchNowPlayingList(showLoading: true);
+                  },
                   child: CustomScrollView(
                     slivers: [
                       SliverAppBar(
@@ -165,15 +180,44 @@ class _HomeTabLayoutState extends State<HomeTabLayout> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         sliver: SliverToBoxAdapter(
                           child: Text(
+                            "Phim sắp chiếu",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: const EdgeInsets.all(16),
+                        sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) => UpComingWidget(
+                              themeController: themeController,
+                              movieRepository: movieRepository,
+                            ), //ListTile
+                            childCount: 1,
+                          ), //SliverChildBuildDelegate
+                        ), //Sliver,
+                      ),
+                      SliverPadding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        sliver: SliverToBoxAdapter(
+                          child: Text(
                             "Phổ biến dành cho bạn",
                             style: theme.textTheme.titleMedium,
                           ),
                         ),
                       ),
-                      // const SliverPadding(
-                      //   padding: EdgeInsets.all(16),
-                      //   sliver: PhotoWidget(),
-                      // ),
+                      SliverPadding(
+                        padding: const EdgeInsets.all(16),
+                        sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) => NowPlayingList(
+                              themeController: themeController,
+                              movieRepository: movieRepository,
+                            ), //ListTile
+                            childCount: 1,
+                          ), //SliverChildBuildDelegate
+                        ), //Sliver,
+                      ),
                     ],
                   ),
                 ),
