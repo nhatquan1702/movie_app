@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/constant/route/route_name.dart';
-import 'package:movie_app/constant/theme/color.dart';
 import 'package:movie_app/view/screen/home/cubit/genre_cubit/genre_cubit.dart';
 import 'package:movie_app/view/screen/home/cubit/genre_cubit/genre_state.dart';
 import 'package:shimmer/shimmer.dart';

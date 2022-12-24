@@ -10,6 +10,7 @@ import 'package:movie_app/view/screen/home/cubit/genre_cubit/genre_cubit.dart';
 import 'package:movie_app/view/screen/home/cubit/genre_cubit/genre_state.dart';
 import 'package:movie_app/view/screen/home/cubit/now_playing_cubit/now_playing_cubit.dart';
 import 'package:movie_app/view/screen/home/cubit/upcoming_cubit/upcoming_movie_cubit.dart';
+import 'package:movie_app/view/screen/home/widget/home_tab/best_movie/best_movie.dart';
 import 'package:movie_app/view/screen/home/widget/home_tab/genre_widget.dart';
 import 'package:movie_app/view/screen/home/widget/home_tab/now_playing/now_playing_list.dart';
 import 'package:movie_app/view/screen/home/widget/home_tab/slider/slider_widget.dart';
@@ -59,6 +60,8 @@ class _HomeTabLayoutState extends State<HomeTabLayout> {
               }
             }
             return Scaffold(
+              drawerEnableOpenDragGesture: false,
+              drawer: const Drawer(),
               body: SafeArea(
                 child: SmartRefresher(
                   controller: refreshController,
@@ -99,14 +102,22 @@ class _HomeTabLayoutState extends State<HomeTabLayout> {
                   enablePullUp: true,
                   onRefresh: () {
                     context.read<GenreCubit>().fetchGenre(showLoading: true);
-                    context.read<UpcomingMovieCubit>().fetchUpcomingMovieList(showLoading: true);
-                    context.read<NowPlayingCubit>().fetchNowPlayingList(showLoading: true);
+                    context
+                        .read<UpcomingMovieCubit>()
+                        .fetchUpcomingMovieList(showLoading: true);
+                    context
+                        .read<NowPlayingCubit>()
+                        .fetchNowPlayingList(showLoading: true);
                   },
                   enablePullDown: true,
                   onLoading: () {
                     context.read<GenreCubit>().fetchGenre(showLoading: true);
-                    context.read<UpcomingMovieCubit>().fetchUpcomingMovieList(showLoading: true);
-                    context.read<NowPlayingCubit>().fetchNowPlayingList(showLoading: true);
+                    context
+                        .read<UpcomingMovieCubit>()
+                        .fetchUpcomingMovieList(showLoading: true);
+                    context
+                        .read<NowPlayingCubit>()
+                        .fetchNowPlayingList(showLoading: true);
                   },
                   child: CustomScrollView(
                     slivers: [
@@ -119,10 +130,10 @@ class _HomeTabLayoutState extends State<HomeTabLayout> {
                         ),
                         leading: IconButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Scaffold.of(context).openDrawer();
                           },
                           icon: const Icon(
-                            Icons.arrow_back,
+                            Icons.menu_outlined,
                             size: 20,
                           ),
                         ),
@@ -179,9 +190,22 @@ class _HomeTabLayoutState extends State<HomeTabLayout> {
                       SliverPadding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         sliver: SliverToBoxAdapter(
-                          child: Text(
-                            "Phim sắp chiếu",
-                            style: theme.textTheme.titleMedium,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Sắp chiếu",
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16,
+                                ),
+                                color: theme.canvasColor,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -200,9 +224,22 @@ class _HomeTabLayoutState extends State<HomeTabLayout> {
                       SliverPadding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         sliver: SliverToBoxAdapter(
-                          child: Text(
-                            "Phổ biến dành cho bạn",
-                            style: theme.textTheme.titleMedium,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Có thể bạn thích",
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16,
+                                ),
+                                color: theme.canvasColor,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -211,6 +248,40 @@ class _HomeTabLayoutState extends State<HomeTabLayout> {
                         sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, index) => NowPlayingList(
+                              themeController: themeController,
+                              movieRepository: movieRepository,
+                            ), //ListTile
+                            childCount: 1,
+                          ), //SliverChildBuildDelegate
+                        ), //Sliver,
+                      ),
+                      SliverPadding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        sliver: SliverToBoxAdapter(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Phổ biến dành cho bạn",
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16,
+                                ),
+                                color: theme.canvasColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: const EdgeInsets.all(16),
+                        sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) => BestMovieList(
                               themeController: themeController,
                               movieRepository: movieRepository,
                             ), //ListTile

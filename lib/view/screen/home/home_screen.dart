@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    bool _secureMode = false;
 
     return Container(
       color: theme.backgroundColor,

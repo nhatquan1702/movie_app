@@ -33,9 +33,7 @@ class MoviesListHorizontal extends StatelessWidget {
                 //   context,
                 //   MaterialPageRoute(
                 //     builder: (context) => MovieDetailScreen(
-                //         themeController: themeController,
-                //         movieRepository: movieRepository,
-                //         movieId: movies[index].id),
+                //         movieId: movies[index].id!),
                 //   ),
                 // );
               },
@@ -48,8 +46,7 @@ class MoviesListHorizontal extends StatelessWidget {
                       highlightColor: Colors.white54,
                       enabled: true,
                       child: Container(
-                        color:
-                        Theme.of(context).canvasColor.withOpacity(0.5),
+                        color: Theme.of(context).canvasColor.withOpacity(0.5),
                         height: 180.0,
                         child: const AspectRatio(
                           aspectRatio: 2 / 3,
@@ -61,17 +58,20 @@ class MoviesListHorizontal extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 180.0,
-                      child: AspectRatio(
-                        aspectRatio: 2 / 3,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5.0),
-                          child: FadeInImage.memoryNetwork(
-                            fit: BoxFit.cover,
-                            placeholder: kTransparentImage,
-                            image:
-                            "https://image.tmdb.org/t/p/w300/${movies[index].poster ?? ''}",
+                    Hero(
+                      tag: movies[index].id ?? -1,
+                      child: SizedBox(
+                        height: 180.0,
+                        child: AspectRatio(
+                          aspectRatio: 2 / 3,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: FadeInImage.memoryNetwork(
+                              fit: BoxFit.cover,
+                              placeholder: kTransparentImage,
+                              image:
+                                  "https://image.tmdb.org/t/p/w300/${movies[index].poster ?? ''}",
+                            ),
                           ),
                         ),
                       ),
