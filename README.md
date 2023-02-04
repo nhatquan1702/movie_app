@@ -2,6 +2,7 @@
 
 ## I. Introduction
 Flutter UI design Movie App
+Video demo: https://drive.google.com/file/d/1ppNe8f6znY6zXuMX_81ZVd23OYIyaq8r/view?usp=share_link
 
 ## II. Directory Structure
 ```
@@ -47,6 +48,6 @@ https://api.themoviedb.org/3
 - rxdart
 
 ## Support
-- If you wanna get updates in next version, please give me a ⭐ to the repo 👍
-- If you love my work and want to support, (https://www.facebook.com/nhatquan99). Thank you so much 👍
+- If you wanna get updates in next version, please give me a ⭐ to the repo.
+- If you love my work and want to support, (https://www.facebook.com/nhatquan99). Thank you so much.
 
