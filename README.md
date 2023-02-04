@@ -34,19 +34,19 @@ https://api.themoviedb.org/3
 
 ## IV. Plugins
 
-[google_fonts]|
-[json_annotation]|
-[dio]|
-[flutter_bloc]|
-[carousel_slider]|
-[pull_to_refresh]|
-[shimmer]|
-[equatable]|
-[transparent_image]|
-[flutter_rating_bar]|
-[rxdart]|
+- google_fonts
+- json_annotation
+- dio
+- flutter_bloc
+- carousel_slider
+- pull_to_refresh
+- shimmer
+- equatable
+- transparent_image
+- flutter_rating_bar
+- rxdart
 
 ## Support
 - If you wanna get updates in next version, please give me a ⭐ to the repo 👍
-- If you love my work and want to support, [buy me a coffee here](https://www.paypal.me/khoahoang1012/1). Thank you so much 👍
+- If you love my work and want to support, (https://www.facebook.com/nhatquan99). Thank you so much 👍
 
