@@ -2,7 +2,7 @@
 
 ## I. Introduction
 Flutter UI design Movie App
-[Check Video Demo]([https://youtu.be/cxUiyI4h2Ug](https://drive.google.com/file/d/1ppNe8f6znY6zXuMX_81ZVd23OYIyaq8r/view?usp=share_link))
+[Check Video Demo]([https://drive.google.com/file/d/1ppNe8f6znY6zXuMX_81ZVd23OYIyaq8r/view?usp=share_link])
 
 ## II. Directory Structure
 ```
