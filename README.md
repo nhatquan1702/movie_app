@@ -1,7 +1,7 @@
 # Flutter Movie App
 
 ## I. Introduction
-Flutter UI design Movie App (BLoC + Json API)
+Flutter UI design Movie App for Android and iOS (BLoC + Json API)
 
 ## II. Directory Structure
 ```
@@ -24,9 +24,9 @@ lib
 ## III. Screenshoot
 #### 3.1. Home
 In Home screen, it just simply load then show data to UI.
-###### 3.1.1. Screen: Home light UI
+###### 3.1.1. Home light Screen
 ![Screenshot_2023-02-04-12-37-23-91_74a00ee4ebe6928c495b7743666cbdaa](https://user-images.githubusercontent.com/64344509/216751512-73e80da4-2cfd-4916-9221-9927e1fe5961.jpg)
-###### 3.1.2. Screen: Home dark UI
+###### 3.1.2. Home dark Screen
 ![Screenshot_2023-02-04-12-37-54-62_74a00ee4ebe6928c495b7743666cbdaa](https://user-images.githubusercontent.com/64344509/216751537-ce721b3c-9442-4045-8df9-34230d1b7ccb.jpg)
 
 ## VI. Movie API
