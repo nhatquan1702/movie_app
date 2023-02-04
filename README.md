@@ -1,7 +1,7 @@
-# A Flutter App - Movie App (BLoC + Json API)
+# Flutter Movie App
 
 ## I. Introduction
-Flutter UI design Movie App
+Flutter UI design Movie App (BLoC + Json API)
 
 ## II. Directory Structure
 ```
